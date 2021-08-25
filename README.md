@@ -29,9 +29,9 @@
 
 
 Входные данные
-1,3,1,4,5
+`1,3,1,4,5`
 Выходные данные
-1,3-5
+`1,3-5`
 
 
 Как отправить решение?
@@ -49,9 +49,9 @@
 шаблоном:
 
 
-function solve(input) {
+```function solve(input) {
  // your code
 }
 const fs = require('fs')
 const input = fs.readFileSync(0, 'utf-8')
-console.log(solve(input))
+console.log(solve(input))```
