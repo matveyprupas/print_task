@@ -10,25 +10,75 @@ function primeNumbersArr() {
     return res;
 }
 
-function onlyFirstFights (fights, mult) {
-    let res = fights - 2**mult;
-    // let mult = 0;
 
-    if (res === 0) {
-        return 2**(mult + 1);
-    } else if (res > 0) {
-        return onlyFirstFights(res, mult + 1)
-    } else {
-        return;
+
+
+
+
+
+
+
+
+
+
+function secondFightsHash( max ) {
+    let hash = {};
+    let com = 1;
+
+    for (let i = 0; i < Infinity; i++) {
+        let fights = com * i;
+        hash[fights] = com;
+        com += 2;
+        if (fights >= max) break;
     }
+
+    console.log(hash);
+    return hash;
 }
 
-console.log(onlyFirstFights (18, 0));
+secondFightsHash (10**18);
+
+
+
+
+
+
+
+
+
+
+
 
 function solve(str) {
     let res = [];
     let fights = +str;
-    let onlyFirstFights = [];
+
+    function onlyFirstFights (fights, mult) {
+        let res = fights - 2**mult;    
+        if (res === 0) {
+            return 2**(mult + 1);
+        } else if (res > 0) {
+            return onlyFirstFights(res, mult + 1)
+        } else {
+            return;
+        }
+    }
+
+    let onlyFirstFightsVar = onlyFirstFights (fights, 0);
+
+    if (onlyFirstFightsVar) res.push( onlyFirstFightsVar );
+
+
+
+
+
+
+
+
+
+
+
+
     let onlySecondFights = secondFights(fights);
 
     function secondFights (fights) {
@@ -45,21 +95,6 @@ function solve(str) {
     if (onlySecondFights) res.push(onlySecondFights) ;
 
 
-    function firstFights (commands) {
-        let first = 0;
-        if (commands % 2) {
-            return first;
-        } else {
-            first = commands / 2;
-            return first + firstFights(commands / 2);
-        }
-    }
-
-    for (let i = 1; i <= 60; i++) {
-        onlyFirstFights.push(firstFights(2**i));
-    }
-
-    if (onlyFirstFights.includes(fights)) res.push( (fights + 1) );
 
     function fsFights(fights, x) {
         let res = 0;
@@ -87,7 +122,8 @@ function solve(str) {
 // console.log(solve(15));
 // console.log(solve(12));
 // console.log(solve(28));
-// console.log(solve(25));
+let com = 15;
+console.log( (com * (com - 1)) / 2 );
 
 // console.log(primeNumbersArr());
 
