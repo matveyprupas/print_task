@@ -1,35 +1,40 @@
 function solve(str) {
     let res = [];
-    let n = +str;
+    let fights = +str;
+    let onlyFirstFights = []; // number of fights when will only first part of tournament
+    let onlySecondFights = secondFights(fights); // number of fights when will only second part of tournament
 
-    function firstFights (num) {
-        let first = 0;
-        if (num % 2) {
-            return first;
-        } else {
-            first = num / 2;
-            return first + firstFights(num / 2);
+    function secondFights (fights) {
+        let mult = 0;
+        let startI = fights > 49999985000001 ? 9999999 : 
+                     fights > 49985001 ? 9999 : 1;
+        for (let i = startI; i < Infinity; i += 2) {
+            let ifigh = i * mult++
+            if (ifigh === fights) return i;
+            if (ifigh > fights) break;
         }
     }
 
-    function secondFights (num) {
-        return (num * (num - 1)) / 2; 
+    if (onlySecondFights) res.push(onlySecondFights) ;
+
+
+    function firstFights (commands) {
+        let first = 0;
+        if (commands % 2) {
+            return first;
+        } else {
+            first = commands / 2;
+            return first + firstFights(commands / 2);
+        }
     }
 
-    let first = firstFights(n);
-    let leftCommands = n - first;
-    let second = secondFights(leftCommands);
-    res.push(first + second);
-
-    for (let i = n-10; i < n + 10; i++) {  
-        let first = firstFights(i);
-        let leftCommands = i - first;
-        let second = secondFights(leftCommands);
-        if (first + second === res[0]) res.push(i); 
+    for (let i = 1; i <= 60; i++) {
+        onlyFirstFights.push(firstFights(2**i));
     }
 
+    if (onlyFirstFights.includes(fights)) res.push( (fights + 1) );
 
-    console.log("first: " + first, "second: " + second);
+
     return res;
 }
 
@@ -37,8 +42,8 @@ function solve(str) {
 // const input = fs.readFileSync(0, 'utf-8')
 
 console.log(solve(3));
-console.log(solve(4));
+// console.log(solve(4));
 
-console.log(solve(12));
-console.log(solve(20));
+// console.log(solve(12));
+// console.log(solve(20));
 // console.log(solve(input));
