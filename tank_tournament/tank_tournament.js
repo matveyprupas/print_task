@@ -10,6 +10,21 @@ function primeNumbersArr() {
     return res;
 }
 
+function onlyFirstFights (fights, mult) {
+    let res = fights - 2**mult;
+    // let mult = 0;
+
+    if (res === 0) {
+        return 2**(mult + 1);
+    } else if (res > 0) {
+        return onlyFirstFights(res, mult + 1)
+    } else {
+        return;
+    }
+}
+
+console.log(onlyFirstFights (18, 0));
+
 function solve(str) {
     let res = [];
     let fights = +str;
@@ -65,8 +80,8 @@ function solve(str) {
     return res.sort((a, b) => a-b).join('\n');
 }
 
-const fs = require('fs')
-const input = fs.readFileSync(0, 'utf-8')
+// const fs = require('fs')
+// const input = fs.readFileSync(0, 'utf-8')
 // console.log(solve(12));
 
 // console.log(solve(15));
@@ -78,4 +93,4 @@ const input = fs.readFileSync(0, 'utf-8')
 
 // console.log(solve(12));
 // console.log(solve(20));
-console.log(solve(input));
+// console.log(solve(input));
