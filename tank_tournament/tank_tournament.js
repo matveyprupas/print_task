@@ -1,8 +1,20 @@
+function primeNumbersArr() {
+    let res = [2, 3, 5, 7];
+    for (let i = 4; i < 1000; i++) {
+        if (!(i % 2)) continue;
+        if (!(i % 3)) continue;
+        if (!(i % 5)) continue;
+        if (!(i % 7)) continue;
+        res.push(i);
+    }
+    return res;
+}
+
 function solve(str) {
     let res = [];
     let fights = +str;
-    let onlyFirstFights = []; // number of fights when will only first part of tournament
-    let onlySecondFights = secondFights(fights); // number of fights when will only second part of tournament
+    let onlyFirstFights = [];
+    let onlySecondFights = secondFights(fights);
 
     function secondFights (fights) {
         let mult = 0;
@@ -34,16 +46,36 @@ function solve(str) {
 
     if (onlyFirstFights.includes(fights)) res.push( (fights + 1) );
 
+    function fsFights(fights, x) {
+        let res = 0;
+        let primeArr = primeNumbersArr();
+        // if (fights % 2) return;
+        primeArrMax = primeArr.filter(el => !(fights % el)).sort((a, b) => b-a )[0];
 
-    return res;
+        let secondFights = (primeArrMax * (primeArrMax - 1)) / 2;
+        if (primeArr.includes(fights - secondFights)) {
+            return res += (fights - secondFights) * 2 * x;
+        } else {
+            return res += fsFights (fights - secondFights, 2);
+        }
+    }
+    
+    res.push(fsFights(fights, 1));
+
+    return res.sort((a, b) => a-b).join('\n');
 }
 
-// const fs = require('fs')
-// const input = fs.readFileSync(0, 'utf-8')
+const fs = require('fs')
+const input = fs.readFileSync(0, 'utf-8')
+// console.log(solve(12));
 
-console.log(solve(3));
-// console.log(solve(4));
+// console.log(solve(15));
+// console.log(solve(12));
+// console.log(solve(28));
+// console.log(solve(25));
+
+// console.log(primeNumbersArr());
 
 // console.log(solve(12));
 // console.log(solve(20));
-// console.log(solve(input));
+console.log(solve(input));
